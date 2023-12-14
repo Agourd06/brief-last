@@ -1,11 +1,12 @@
 <?php
-require("../config/database.php");
+require("../../config/database.php");
 
 
 
 Class Account{
 
-    protected $RIB;
+    protected $id;
+    protected $rib;
     protected $balance;
 
     public function deposit ($amount){
