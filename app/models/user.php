@@ -1,6 +1,6 @@
 <?php
-require("../config/database.php");
-
+require("../repositories/Database.php");
+require("Adress.php");
 
 
 Class User{
@@ -10,13 +10,14 @@ Class User{
     private $nom;
     private $prenom;
     private $password;
-
-    public function __construct($username,$nom,$prenom,$password){
-
+    private Adress $adress;
+    public function __construct($userId,$username,$nom,$prenom,$password,Adress $adress){
+        $this->userId=$userId;
         $this->username= $username;
         $this->nom = $nom ;
         $this->prenom = $prenom;
         $this->password = $password ;
+        $this->adress = $adress;
 
     }
 
