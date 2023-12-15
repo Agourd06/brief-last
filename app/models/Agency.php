@@ -10,15 +10,21 @@ Class Agency{
     private $longitude;
     private $latitude;
     private $agencyName;
+    private $bankId;
+    private Adress $adress;
+
     
 
 
 
-    public function __construct($longitude,$latitude,$agencyName){
-    
+    public function __construct($agencyId,$longitude,$latitude,$bankId,$agencyName,Adress $adress){
+        $this->agencyId = $agencyId;
         $this->longitude= $longitude;
         $this->latitude = $latitude ;
+        $this->bankId = $bankId;
         $this->agencyName = $agencyName ;
+        $this->adress = $adress;
+
         
        
 
@@ -27,29 +33,31 @@ Class Agency{
 
 
 
-    public function getagencyId($agencyId){
-        return $this->$agencyId;
+    public function getagencyId(){
+        return $this->agencyId;
     }
     
-    public function getlongitude($longitude){
-        return $this->$longitude;
+    public function getlongitude(){
+        return $this->longitude;
     }
     public function setlongitude($longitude){
         $this->longitude = $longitude;
     }
-    public function getlatitude($latitude){
-        return $this->$latitude;
+    public function getlatitude(){
+        return $this->latitude;
     }
     public function setlatitude($latitude){
         $this->latitude = $latitude;
     }
-    public function getagencyName($agencyName){
-        return $this->$agencyName;
+    public function getagencyName(){
+        return $this->agencyName;
     }
     public function setagencyName($agencyName){
         $this->agencyName = $agencyName;
     }
-    
+    public function getAdress(){
+        return $this->adress;
+    }
     }
     
 

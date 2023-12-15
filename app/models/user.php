@@ -11,6 +11,7 @@ Class User{
     private $prenom;
     private $password;
     private Adress $adress;
+    
     public function __construct($userId,$username,$nom,$prenom,$password,Adress $adress){
         $this->userId=$userId;
         $this->username= $username;
