@@ -8,7 +8,7 @@ Class Account{
     protected $id;
     protected $rib;
     protected $balance;
-
+    
     public function deposit ($amount){
         if($amount> 0){
             $this->balance += $amount;

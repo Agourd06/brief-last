@@ -1,23 +1,23 @@
 <?php
-require("../config/database.php");
+require("../repositories/Database.php");
 
 
 
-Class User{
+Class Adress{
 
-    private $adressId;
-    private $ville;
-    private $quartier;
-    private $codePostal;
-    private $tel;
+    protected $adressId;
+    protected $ville;
+    protected $quartier;
+    protected $codePostal;
+    protected $tel;
     
 
-    public function __construct($ville,$quartier,$codePostal,$tel){
-
-        $this->username= $ville;
-        $this->nom = $quartier ;
-        $this->prenom = $codePostal;
-        $this->password = $tel ;
+    public function __construct($adressId,$ville,$quartier,$codePostal,$tel){
+        $this->adressId = $adressId;
+        $this->ville= $ville;
+        $this->quartier = $quartier ;
+        $this->codePostal = $codePostal;
+        $this->tel = $tel ;
 
     }
 

@@ -1,5 +1,5 @@
 <?php
-require("../config/database.php");
+require("../repositories/Database.php");
 
 
 
@@ -19,6 +19,7 @@ Class Agency{
         $this->longitude= $longitude;
         $this->latitude = $latitude ;
         $this->agencyName = $agencyName ;
+        
        
 
     }
