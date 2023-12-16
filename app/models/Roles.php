@@ -3,7 +3,7 @@
 require("../repositories/Database.php");
 
 
-        class role{
+        class Roles{
 
         private  $roleName;
 

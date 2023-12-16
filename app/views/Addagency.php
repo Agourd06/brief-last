@@ -41,7 +41,6 @@ if (isset($_POST["submit"])){
 }
 $banksService = new Bankservice();
 $banks = $banksService->getBanks();
-var_dump($banks) ;
 ?>
 
 
