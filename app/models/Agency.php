@@ -1,5 +1,5 @@
 <?php
-require("../repositories/Database.php");
+require_once("../repositories/Database.php");
 
 
 
@@ -11,22 +11,21 @@ Class Agency{
     private $latitude;
     private $agencyName;
     private $bankId;
-    private Adress $adress;
+    private $adressId;
 
     
 
 
 
-    public function __construct($agencyId,$longitude,$latitude,$bankId,$agencyName,Adress $adress){
-        $this->agencyId = $agencyId;
+    public function __construct($longitude,$latitude,$bankId,$agencyName,$adressId){
+        // $this->agencyId = $agencyId;
         $this->longitude= $longitude;
         $this->latitude = $latitude ;
         $this->bankId = $bankId;
         $this->agencyName = $agencyName ;
-        $this->adress = $adress;
-
+        $this->adressId = $adressId;
         
-       
+
 
     }
 
@@ -55,9 +54,13 @@ Class Agency{
     public function setagencyName($agencyName){
         $this->agencyName = $agencyName;
     }
-    public function getAdress(){
-        return $this->adress;
+    public function getadressId(){
+        return $this->adressId;
     }
+    public function getBankId(){
+        return $this->bankId;
+    }
+   
     }
     
 

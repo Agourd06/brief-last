@@ -7,30 +7,30 @@ Class Bank{
 
 
 private $bankId;
-private $name;
+private $bankName;
 private $logo;
 
-public function __construct($name,$logo){
+public function __construct($logo,$name){
 
-    $this->name= $name;
+    $this->bankName= $name;
     $this->logo = $logo ;
    
 
 }
 
 
-public function getbankId($bankId){
-    return $this->$bankId;
+public function getbankId(){
+    return $this->bankId;
 }
 
-public function getname($name){
-    return $this->$name;
+public function getbankName(){
+    return $this->bankName;
 }
-public function setname($name){
-    $this->name = $name;
+public function setbankName($bankName){
+    $this->bankName = $bankName;
 }
-public function getlogo($logo){
-    return $this->$logo;
+public function getlogo(){
+    return $this->logo;
 }
 public function setlogo($logo){
     $this->logo = $logo;
