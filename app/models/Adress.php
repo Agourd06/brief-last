@@ -14,8 +14,8 @@ Class Adress{
     private $tel;
     
 
-    public function __construct($adressId,$ville,$rue,$quartier,$codePostal,$email,$tel){
-        $this->adressId = $adressId;
+    public function __construct($ville,$rue,$quartier,$codePostal,$email,$tel){
+        // $this->adressId = $adressId;
         $this->ville= $ville;
         $this->rue = $rue;
         $this->quartier = $quartier ;

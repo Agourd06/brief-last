@@ -10,18 +10,20 @@ Class Atm{
 
     private $atmId;
     private $adress;
+    private $bankId;
     
-    public function __construct($adress){
+    public function __construct($adress,$bankId){
     
         $this->adress= $adress;
+        $this->bankId = $bankId;
        
     
     }
     
     
  
-    public function getAdress($adress){
-        return $this->$adress;
+    public function getAtmAdress(){
+        return $this->adress;
     }
 
 
@@ -30,7 +32,9 @@ Class Atm{
         $this->adress = $adress;
     }
 
-
+public function getBankId(){
+    return $this->bankId;
+}
 
 
 

@@ -1,11 +1,11 @@
 <?php
-require("../repositories/Database.php");
+require_once("../repositories/Database.php");
 require("AgencyInterfaceService.php");
 
 class Agencyservice extends Database implements AgencyInterface
 {
 
-    private $db;
+    protected $db;
 
 
     public function addAgency(Agency $agency)
@@ -13,18 +13,19 @@ class Agencyservice extends Database implements AgencyInterface
 
         $db = $this->connect();
 
-        $agencyId = $agency->getagencyId();
+        // $agencyId = $agency->getagencyId();
         $longitude = $agency->getlongitude();
         $latitude = $agency->getlatitude();
-       
         $agencyName = $agency->getagencyName();
-        $adress = $agency->getAdress();
-        $adrId =  $adress->getadressId();
+        $adrId = $agency->getadressId();
+        $bankId = $agency->getBankId();
 
 
-        $addag = "INSERT INTO agency  VALUES ( :agencyId, :longitude, :latitude,:bankId,:agencyname,:adrId)";
+
+ 
+        $addag = "INSERT INTO agency (longitude , latitude,bankId,agencyName,adrId)  VALUES ( :longitude, :latitude,:bankId,:agencyname,:adrId)";
         $stmt = $db->prepare($addag);
-        $stmt->bindParam(":agencyId", $agencyId);
+        // $stmt->bindParam(":agencyId", $agencyId);
         $stmt->bindParam(":longitude", $longitude);
         $stmt->bindParam(":latitude", $latitude);
         $stmt->bindParam(":bankId", $bankId);

@@ -1,5 +1,5 @@
 <?php
-require("../repositories/Database.php");
+require_once("../repositories/Database.php");
 require("AdressServiceInterface.php");
 
 class AdressService extends Database implements AdressInterface
@@ -13,7 +13,7 @@ class AdressService extends Database implements AdressInterface
 
         $this->db = $this->connect();
 
-        $adressId = $adress->getadressId();
+        // $adressId = $adress->getadressId();
         $ville = $adress->getville();
         $rue = $adress->getRue();
         $quartier = $adress->getquartier();
@@ -22,9 +22,9 @@ class AdressService extends Database implements AdressInterface
         $tel = $adress->getTel();
 
 
-        $addag = "INSERT INTO adress  VALUES ( :adressId, :ville, :rue,:quartier,:codePostal,:email,:tel)";
+        $addag = "INSERT INTO adress (ville , rue , quartier , codepostale , email , tel) VALUES (:ville, :rue,:quartier,:codePostal,:email,:tel)";
         $stmt = $this->db->prepare($addag);
-        $stmt->bindParam(":adressId", $adressId);
+        // $stmt->bindParam(":adressId", $adressId);
         $stmt->bindParam(":ville", $ville);
         $stmt->bindParam(":rue", $rue);
         $stmt->bindParam(":quartier", $quartier);
@@ -35,9 +35,13 @@ class AdressService extends Database implements AdressInterface
 
         try {
             $stmt->execute();
+           $adresid = $this->db->lastInsertId();
+
             echo "added";
+            return $adresid;
         } catch (PDOException $e) {
             die($e->getMessage());
         }
+        
     }
 }
