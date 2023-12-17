@@ -40,4 +40,16 @@ class Agencyservice extends Database implements AgencyInterface
             die($e->getMessage());
         }
     }
+
+    public function getAgency()
+    {
+        $db = $this->connect();
+
+        $query   = "SELECT * FROM agency";
+
+        $getAgency = $db->query($query);
+        $result = $getAgency->fetchAll(PDO::FETCH_ASSOC);
+
+        return $result;
+    }
 }
