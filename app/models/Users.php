@@ -10,13 +10,16 @@ Class Users{
     private $prenom;
     private $password;
     private $adressId;
+
+    private $agencyId;
     
-    public function __construct($password,$prenom,$nom,$username,$adressId){
+    public function __construct($password,$prenom,$nom,$username,$adressId,$agencyId){
         $this->username= $username;
         $this->nom = $nom ;
         $this->prenom = $prenom;
         $this->password = $password ;
         $this->adressId = $adressId;
+        $this->agencyId = $agencyId;
 
     }
 
@@ -55,7 +58,9 @@ Class Users{
         return $this->adressId;
     }
 
-
+    public function getAgencyId(){
+        return $this->agencyId;
+    }
 }
 
 

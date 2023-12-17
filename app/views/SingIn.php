@@ -1,14 +1,15 @@
 <?php
 require_once "../models/Adress.php";
 require_once "../services/AdressService.php";
-require_once "../models/Users.php";  
+require_once "../models/Users.php";
 require_once "../services/UserServices.php";
 require_once "../services/RolesServices.php";
 require_once "../models/RoleOfUser.php";
+require_once "../services/AgencyService.php";
 
-require_once "../services/RolesofUsersService.php";  
+require_once "../services/RolesofUsersService.php";
 
-if (isset($_POST["submit"])){
+if (isset($_POST["submit"])) {
     $username = $_POST['username'];
     $firstname = $_POST['firstname'];
     $lastname = $_POST['lastname'];
@@ -20,34 +21,34 @@ if (isset($_POST["submit"])){
     $codePostal = $_POST['codePostal'];
     $email = $_POST['email'];
     $tel = $_POST['tel'];
+    $agencyId = $_POST['agencyId'];
     $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-$error = array();
-     if ($password === $Cpassword) {
-    $Adress = new Adress( $ville, $rue, $quartier, $codePostal, $email, $tel);
-    $bankService = new AdressService();
-   $adrId =  $bankService->addAdress($Adress);
-   
-   
-   
+    $error = array();
+    if ($password === $Cpassword) {
+        $Adress = new Adress($ville, $rue, $quartier, $codePostal, $email, $tel);
+        $bankService = new AdressService();
+        $adrId =  $bankService->addAdress($Adress);
 
-    $Users = new Users( $hashedPassword, $firstname, $lastname, $username, $adrId);
-    $agencyService = new Userservice();
-    $userId =$agencyService->addUser($Users);
 
-    $selectedRoles = isset($_POST['user-type']) ? $_POST['user-type'] : array();
-    foreach ($selectedRoles as $selectedRole) {
 
-$roleofuser = new roleOfUser($userId,$selectedRole);
-$rolenameservice = new RolesofUsersServices();
-$rolenameservice->addRolesofuser($roleofuser);
-    }  } else {
+
+        $Users = new Users($hashedPassword, $firstname, $lastname, $username, $adrId,$agencyId);
+        $agencyService = new Userservice();
+        $userId = $agencyService->addUser($Users);
+
+        $selectedRoles = isset($_POST['user-type']) ? $_POST['user-type'] : array();
+        foreach ($selectedRoles as $selectedRole) {
+
+            $roleofuser = new roleOfUser($userId, $selectedRole);
+            $rolenameservice = new RolesofUsersServices();
+            $rolenameservice->addRolesofuser($roleofuser);
+        }
+    } else {
         $error[] = 'Password and confirmation password do not match!';
     }
-  
-
- 
-
 }
+$agencyService = new Agencyservice();
+$agencys = $agencyService->getAgency();
 
 $RolesService = new RoleService();
 $rolenames = $RolesService->selectRoles();
@@ -72,15 +73,15 @@ $rolenames = $RolesService->selectRoles();
 <body>
     <section class="h-[100vh] w-[100%] flex items-center">
 
-        <form class="w-[50%] mx-auto" method="post" action=""> 
-        <?php
+        <form class="w-[50%] mx-auto" method="post" action="">
+            <?php
             if (isset($error)) {
                 foreach ($error as $errorMessage) {
                     echo '<p style="color: red;">' . $errorMessage . '</p>';
                 }
             }
             ?>
-             <div class="relative z-0 w-full mb-5 group">
+            <div class="relative z-0 w-full mb-5 group">
                 <input type="text" name="username" id="floating_repeat_password" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " required />
                 <label for="floating_repeat_password" class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Username</label>
             </div>
@@ -134,23 +135,34 @@ $rolenames = $RolesService->selectRoles();
                     <label for="floating_last_name" class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">User Phone</label>
                 </div>
             </div>
-            <div class="grid md:grid-rows-2  ">
-            <div class="w-[100%] ">
-                            <?php
-                          
-                           
-    foreach($rolenames as $rolename):
-                            
-                            ?>
+            <div class="grid md:grid-cols-2 md:gap-6">
+                <div class="w-[100%] ">
+                    <?php
+
+
+                    foreach ($rolenames as $rolename) :
+
+                    ?>
                         <label>
                             <input type="checkbox" name="user-type[]" value="<?= $rolename["rolename"] ?> " class="mr-2">
-                            <?= $rolename["rolename"] ?>                        </label>
-                      
-                        <?PHP endforeach;?>
+                            <?= $rolename["rolename"] ?> </label>
 
-                        </div>
+                    <?PHP endforeach; ?>
+
+                </div>
+                <select name="agencyId" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer">
+                    <option value="">Choses Agency</option>
+                    <?php
+                    foreach ($agencys as $agency) : ?>
+                        <option value="<?php echo  $agency['agencyId'] ?>"><?php echo $agency['agencyName'] ?></option>
+
+                    <?php endforeach; ?>
+
+
+
+                </select>
             </div>
-           
+
 
 
             <input type="submit" name="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" value="submit">
