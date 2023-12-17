@@ -19,18 +19,19 @@ class Userservice extends Database implements UserInterface
         $prenom = $users->getprenom();
         $password = $users->getpassword();
         $adressId = $users->getadressId();
-       
+       $agencyId = $users->getAgencyId();
        
 
 
  
-        $addag = "INSERT INTO users (pw,firstName,familyName,username,adrId)  VALUES ( :pw,:firstName,:familyName,:username,:adrId)";
+        $addag = "INSERT INTO users (pw,firstName,familyName,username,adrId,agencyId)  VALUES ( :pw,:firstName,:familyName,:username,:adrId,:agencyId)";
         $stmt = $db->prepare($addag);
         $stmt->bindParam(":pw", $password);
         $stmt->bindParam(":firstName", $prenom);
         $stmt->bindParam(":familyName", $nom);
         $stmt->bindParam(":username", $userName);
         $stmt->bindParam(":adrId", $adressId);
+        $stmt->bindParam(":agencyId", $agencyId);
       
 
         try {
@@ -44,5 +45,36 @@ class Userservice extends Database implements UserInterface
         }
 
     }
+    public function getUser()
+    {
+        $db = $this->connect();
+
+        $query   = "SELECT * FROM users";
+
+        $getUser = $db->query($query);
+        $result = $getUser->fetchAll(PDO::FETCH_ASSOC);
+
+        return $result;
+    }
+
+    public function getFilteredUsers($id)
+    {
+        $db = $this->connect();
+    
+        $query = "SELECT u.*, a.agencyId, a.agencyName
+                  FROM users u
+                  JOIN agency a ON a.agencyId = u.agencyId
+                  WHERE u.agencyId = :id";
+    
+        $stmt = $db->prepare($query);
+        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+        $stmt->execute();
+    
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    
+        return $result;
+    }
+    
+
 
 }

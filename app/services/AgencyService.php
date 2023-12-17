@@ -1,5 +1,6 @@
 <?php
 require_once("../repositories/Database.php");
+require_once("../models/Agency.php");
 require("AgencyInterfaceService.php");
 
 class Agencyservice extends Database implements AgencyInterface
@@ -52,4 +53,22 @@ class Agencyservice extends Database implements AgencyInterface
 
         return $result;
     }
+    public function getFiltredAgency($id)
+    {
+        $db = $this->connect();
+
+        $query   = "SELECT a.* ,b.bankId , b.logo 
+        FROM agency a
+        JOIN bank b ON a.bankId = b.bankId
+        WHERE a.bankId = $id
+        
+        ";
+
+        $getAgency = $db->query($query);
+        $result = $getAgency->fetchAll(PDO::FETCH_ASSOC);
+
+        return $result;
+    }
+
+
 }
