@@ -14,9 +14,16 @@ $Usersservice = new Userservice();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.css">
+    <script type="text/javascript" charset="utf8" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script>
 
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        $(document).ready(function() {
+            $('#dataTable').DataTable();
+        });
+    </script>
 
     <title>Gestionaire Bancaire</title>
     <style>
@@ -85,7 +92,7 @@ $Usersservice = new Userservice();
 
          $UsersAgency =   $Usersservice->getFilteredUsers($agencyId);
             foreach ($UsersAgency as $Users) {
-                if(count($Users)){
+             
                 ?>
 
 
@@ -102,7 +109,7 @@ $Usersservice = new Userservice();
 
 
 
-                    <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                    <table  class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
            <thead class="text-xs text-gray-700 upper w-[11%] px-6 py-3 text-center" scope="col" >
                         <tr>
                                 <th class=" w-[11%] px-6 py-3 text-center" scope="col">User Name</th>
@@ -149,23 +156,19 @@ $Usersservice = new Userservice();
                                 </form>
                             </td> 
                             </tr>
-                    
+                            <?php
+            }
+
+}else{ 
+?>
             </table>
-            <?php }else{?> 
-                  <p class='text-center'>0 results</p>
-                  <?php }}}else{
-                     $UsersAgency =   $Usersservice->getUser();
-                     foreach ($UsersAgency as $Users) {
-                         if(count($Users)){
-                    ?> 
-            
-            
+          
        
        
            
           
 
-                    <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                    <table id="dataTable" class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                     <thead class="text-xs text-gray-700 upper w-[11%] px-6 py-3 text-center" scope="col" >
                       <tr>
                                 <th class=" w-[11%] px-6 py-3 text-center" scope="col">User Name</th>
@@ -177,6 +180,11 @@ $Usersservice = new Userservice();
                                 <th class=" w-[11%] px-6 py-3 text-center" scope="col">Accounts</th>
                             </tr>
                         </thead>
+                        <?php 
+                     $UsersAgency =   $Usersservice->getUser();
+                     foreach ($UsersAgency as $Users) {
+                    
+                    ?> 
                     <tbody class="h-[2vh] ">
                           <tr> 
                                 <td class='px-6 py-4 font-semibold text-center'><?= $Users["username"] ?></td>
@@ -186,34 +194,38 @@ $Usersservice = new Userservice();
                                 
                         
                         
-                             <td >
+                                <td >
                                 <form action='registre.php' method='post'  class=' cursor-pointer text-center focus:outline-none text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-900'>
-                                <input type='hidden' name='operation' value='" . $row["userId"] . "'>
-                                <input type='hidden' name='userid' value='" . $row["userId"] . "'>
+                                <input type='hidden' name='operation' value='<?= $Users["userId"] ?>'>
+                                <input type='hidden' name='userid' value='<?= $Users["userId"] ?>'>
                                 <input type='submit'  name='editing' value='Edit' class=' cursor-pointer'>
                             </form>
                             
         
                             
                                 </td>
-                                 <td>
-                                <form action='users.php' method='post' class=' cursor-pointer text-center focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900'>
-                                <input type='hidden' name='userid' value='" . $row["userId"] . "'>
-                                <input type='submit'  name='deleteuser' value='Delete' class=' cursor-pointer'>
-                              
-                            </form>
-                                 </td>
                             <td >
-                            <form action='agences.php' method='post' class=' cursor-pointer text-center focus:outline-none text-white bg-gray-500 hover:bg-gray-800 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-900'>
-                                <input type='hidden' name='userid' value='" . $row["userId"] . "'>
-                                <input type='submit'  name='submit' value='Show' class=' cursor-pointer'>
-                            </form>
-                        </td> 
+                            <form action='users.php' method='post' class=' cursor-pointer text-center focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900'>
+                            <input type='hidden' name='userid' value='<?= $Users["userId"] ?>'>
+                            <input type='submit'  name='deleteuser' value='Delete' class=' cursor-pointer'>
+                        </form>
+                        
+                                </td>
+                                <td >
+                                <form action='agences.php' method='post' class=' cursor-pointer text-center focus:outline-none text-white bg-gray-500 hover:bg-gray-800 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-900'>
+                                    <input type='hidden' name='userid' value='<?= $Users["userId"] ?>'>
+                                    <input type='submit'  name='submit' value='Show' class=' cursor-pointer'>
+                                </form>
+                            </td> 
                             </tr>
-                               
+                            <?php
+            }
+
+        }
+?>
                   </table>
                     
-                <?php }}}?>  
+              
                 
                     
 
