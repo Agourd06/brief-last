@@ -50,9 +50,10 @@ class Userservice extends Database implements UserInterface
         $db = $this->connect();
 
         $query   = "SELECT * FROM users";
+        $stmt = $db->prepare($query);
+        $stmt->execute();
 
-        $getUser = $db->query($query);
-        $result = $getUser->fetchAll(PDO::FETCH_ASSOC);
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
         return $result;
     }
