@@ -30,7 +30,6 @@ class Atmservice extends Database implements AtmInterface
 
         try {
             $stmt->execute();
-            echo "added";
         } catch (PDOException $e) {
             die($e->getMessage());
         }

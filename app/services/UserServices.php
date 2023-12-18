@@ -38,7 +38,6 @@ class Userservice extends Database implements UserInterface
             $stmt->execute();
            $userId = $db->lastInsertId();
 
-            echo "added";
             return $userId;
         } catch (PDOException $e) {
             die($e->getMessage());
@@ -76,6 +75,99 @@ class Userservice extends Database implements UserInterface
         return $result;
     }
     
+    public function showeditduser($id){
+       
+
+        $db = $this->connect();
+        $usersInfo = "SELECT users.*, adress.*, rolename
+            FROM users 
+            JOIN adress  ON users.adrId = users.adrId
+            JOIN roleofuser ON users.userId = roleofuser.userId
+            WHERE users.userId = :id";
+
+$getuser = $db->prepare($usersInfo);
+$getuser->bindParam(':id', $id, PDO::PARAM_INT);
+$getuser->execute();
+$result = $getuser->fetch(PDO::FETCH_ASSOC);
 
 
+
+
+	
+            $username = $result['username'];
+            $firstname = $result['firstName'];
+            $lastname = $result['familyName'];
+            $password = $result['pw'];
+            $ville = $result['ville'];
+            $rue = $result['rue'];
+            $quartier = $result['quartier'];
+            $codePostal = $result['codepostale'];
+            $email = $result['email'];
+            $tel = $result['tel'];
+            $userId = $result['userId'];
+        
+
+        
+            return [$username, $firstname,$lastname,$password,$password,$ville,$rue,$quartier,$codePostal,$email,$tel,$userId];
+    
+}
+
+
+
+public function editdUser(Users $users,adress $adress, $id){
+    $db = $this->connect();
+
+    $username = $users->getusername();
+    $firstName = $users->getprenom();
+    $familyName = $users->getnom();
+    $pw = $users->getpassword();
+    $ville = $adress->getville();
+    $rue = $adress->getRue();
+    $quartier = $adress->getquartier();
+    $codepostale = $adress->getcodePostal();
+    $email = $adress->getEmail();
+    $tel = $adress->getTel();
+
+
+
+    $updateQuery = "UPDATE users
+    JOIN adress ON users.adrId = adress.adrId
+    SET 
+    users.username = :username,
+    users.firstName = :firstName,
+    users.familyName = :familyName,
+    users.pw = :pw,
+    adress.ville = :ville,
+    adress.rue = :rue,
+    adress.quartier = :quartier,
+    adress.codepostale = :codePostal,  
+    adress.email = :email,
+    adress.tel = :tel
+    WHERE 
+        users.userId = :id;
+    ";
+
+    $stmt = $db->prepare($updateQuery);
+    $stmt->bindParam(":username", $username);
+    $stmt->bindParam(":firstName", $firstName);
+    $stmt->bindParam(":familyName", $familyName);
+    $stmt->bindParam(":pw", $pw);
+    $stmt->bindParam(":ville", $ville);
+    $stmt->bindParam(":rue", $rue);
+    $stmt->bindParam(":quartier", $quartier);
+    $stmt->bindParam(":codePostal", $codepostale);
+    $stmt->bindParam(":email", $email);
+    $stmt->bindParam(":tel", $tel);
+
+    $stmt->bindParam(":id", $id, PDO::PARAM_INT); 
+
+    try {
+        $stmt->execute();
+        
+    } catch (PDOException $e) {
+        die($e->getMessage());
+    }
+
+    header('location: Users.php');
+}
 }

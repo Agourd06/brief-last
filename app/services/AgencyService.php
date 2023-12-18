@@ -36,7 +36,6 @@ class Agencyservice extends Database implements AgencyInterface
 
         try {
             $stmt->execute();
-            echo "added";
         } catch (PDOException $e) {
             die($e->getMessage());
         }
@@ -46,7 +45,7 @@ class Agencyservice extends Database implements AgencyInterface
     {
         $db = $this->connect();
 
-        $query   = "SELECT * FROM agency";
+        $query   = "SELECT * FROM agency WHERE deletedAg = FALSE ";
 
         $getAgency = $db->query($query);
         $result = $getAgency->fetchAll(PDO::FETCH_ASSOC);
@@ -71,4 +70,121 @@ class Agencyservice extends Database implements AgencyInterface
     }
 
 
+    public function showeditdAgency($id){
+       
+
+        $db = $this->connect();
+        $Agencyinfo = "SELECT agency.*, adress.*, bank.bankId
+            FROM agency 
+            JOIN adress  ON agency.adrId = adress.adrId
+            JOIN bank  ON agency.bankId = bank.bankId
+            WHERE agency.agencyId = :id";
+
+$getagency = $db->prepare($Agencyinfo);
+$getagency->bindParam(':id', $id, PDO::PARAM_INT);
+$getagency->execute();
+$result = $getagency->fetch(PDO::FETCH_ASSOC);
+
+
+
+
+          $AgencyName = $result['agencyName'];
+            $Longitude = $result['longitude'];
+            $Latitude = $result['latitude'];
+            $ville = $result['ville'];
+            $rue = $result['rue'];
+            $quartier = $result['quartier'];
+            $codePostal = $result['codepostale'];
+            $email = $result['email'];
+            $tel = $result['tel'];
+            $bankId = $result['bankId'];
+            $agencyId = $result['agencyId'];
+
+        
+
+        
+            return [$AgencyName, $Longitude,$Latitude,$ville,$rue,$quartier,$codePostal,$email,$tel,$bankId,$agencyId];
+    
 }
+
+public function editdAgency(agency $agency,adress $adress, $id){
+    $db = $this->connect();
+
+    $agencyName = $agency->getagencyName();
+    $longitude = $agency->getlongitude();
+    $latitude = $agency->getlatitude();
+    $bankId = $agency->getBankId();
+    $ville = $adress->getville();
+    $rue = $adress->getRue();
+    $quartier = $adress->getquartier();
+    $codepostale = $adress->getcodePostal();
+    $email = $adress->getEmail();
+    $tel = $adress->getTel();
+
+
+
+    $updateQuery = "UPDATE agency
+    JOIN adress ON agency.adrId = adress.adrId
+    JOIN bank ON agency.bankId = bank.bankId
+    SET 
+    agency.agencyName = :agencyName,
+    agency.longitude = :longitude,
+    agency.latitude = :latitude,
+    adress.ville = :ville,
+    adress.rue = :rue,
+    adress.quartier = :quartier,
+    adress.codepostale = :codePostal,  
+    adress.email = :email,
+    adress.tel = :tel
+    WHERE 
+        agency.agencyId = :id;
+    ";
+
+    $stmt = $db->prepare($updateQuery);
+    $stmt->bindParam(":agencyName", $agencyName);
+    $stmt->bindParam(":longitude", $longitude);
+    $stmt->bindParam(":latitude", $latitude);
+    $stmt->bindParam(":ville", $ville);
+    $stmt->bindParam(":rue", $rue);
+    $stmt->bindParam(":quartier", $quartier);
+    $stmt->bindParam(":codePostal", $codepostale);
+    $stmt->bindParam(":email", $email);
+    $stmt->bindParam(":tel", $tel);
+
+    $stmt->bindParam(":id", $id, PDO::PARAM_INT); 
+
+    try {
+        $stmt->execute();
+        
+    } catch (PDOException $e) {
+        die($e->getMessage());
+    }
+
+    header('location: agency.php');
+}
+
+public function SoftDelete($id) {
+
+    $db = $this->connect();
+
+    $soft_delete = "UPDATE agency set deletedAg	 = TRUE WHERE agencyId = :id";
+
+    $stmt = $db->prepare($soft_delete);
+    $stmt->bindParam(":id", $id);
+    $stmt->execute();
+
+
+}public function restAgency() {
+
+    $db = $this->connect();
+
+    $deleteAll = "UPDATE agency set deletedAg = FALSE ;";
+
+    $stmt = $db->prepare($deleteAll);
+   
+    $stmt->execute();
+
+
+}
+
+}?>

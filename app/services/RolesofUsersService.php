@@ -31,7 +31,6 @@ class RolesofUsersServices extends Database implements RoleofuserInterface
 
         try {
             $stmt->execute();
-            echo "added";
         } catch (PDOException $e) {
             die($e->getMessage());
         }

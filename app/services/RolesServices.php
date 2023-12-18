@@ -12,17 +12,6 @@ class RoleService extends Database implements RoleInterface
     protected $db;
 
 
-   
-
-
-        
-
-
-
-
-
-
-      
 
     public function selectRoles()
     {
