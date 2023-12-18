@@ -2,7 +2,7 @@
 require_once("../repositories/Database.php");
 
 
-Class Users{
+Class User{
 
     private $userId;
     private $username;

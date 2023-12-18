@@ -5,9 +5,6 @@ require("../repositories/Database.php");
 
 Class Atm{
 
-
-
-
     private $atmId;
     private $adress;
     private $bankId;

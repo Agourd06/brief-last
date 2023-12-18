@@ -1,7 +1,7 @@
 <?php
 require_once "../models/Adress.php";
 require_once "../services/AdressService.php";
-require_once "../models/Users.php";
+require_once "../models/User.php";
 require_once "../services/UserServices.php";
 require_once "../services/RolesServices.php";
 require_once "../models/RoleOfUser.php";
