@@ -89,7 +89,7 @@ if (isset($_POST['Deletes']) ) {
             </nav>
 
         </header>
-
+<script src="navbar.js"></script>
 
         <div class="flex justify-evenly items-center  w-[85%]">
             <h1 class="text-[50px] h-[10%]  text-center text-black">BANKS</h1>

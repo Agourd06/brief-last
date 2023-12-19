@@ -79,6 +79,7 @@ if (isset($_POST['reset'])) {
         </nav>
 
     </header>
+    <script src="navbar.js"></script>
 
     <script src="navbar.js">
 

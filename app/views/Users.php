@@ -71,7 +71,7 @@ $Usersservice = new Userservice();
                 <input type="text" name="search" placeholder="Search UserName..." class="p-2 border border-gray-300 rounded-md" >
             </form>
         </header>
-        <script src="navbar.js">
+        <script src="navbar.js"></script>
 
         </script>
 
