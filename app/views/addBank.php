@@ -15,7 +15,8 @@ if (isset($_POST["submit"])){
      $bankService->addBank($Bank);
 
 }
-
+ $logo ='';
+    $name = '';
 if (isset($_POST["operation"]) && isset($_POST["edit"])) {
     $id = $_POST["bankid"];
 
@@ -23,8 +24,7 @@ $bankService = new Bankservice();
 [$logo, $name,$bankId] = $bankService->showeditdbank($id);
 
 }
-    $logo ='';
-    $name = '';
+   
 if (isset($_POST['edited'])) {
     $logo = $_POST['logobank'];
     $name = $_POST['bankName'];
