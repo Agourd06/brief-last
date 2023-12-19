@@ -37,7 +37,6 @@ class AdressService extends Database implements AdressInterface
             $stmt->execute();
            $adresid = $this->db->lastInsertId();
 
-            echo "added";
             return $adresid;
         } catch (PDOException $e) {
             die($e->getMessage());

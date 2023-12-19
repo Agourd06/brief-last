@@ -5,6 +5,17 @@ require_once "../services/AgencyService.php";
 
 $agenteService = new Agencyservice();
 
+if (isset($_POST['deleteagency']) && isset($_POST['delete'])) {
+    $id = $_POST['delete'];
+
+   
+$agenteService->SoftDelete($id);
+     
+}
+if (isset($_POST['reset'])) {
+   $agenteService->restAgency();
+}
+
 
 ?>
 
@@ -119,7 +130,7 @@ $agenteService = new Agencyservice();
 
     
                             <td >
-                            <form action='addagency.php' method='post' class=' cursor-pointer text-center focus:outline-none text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-900'>
+                            <form action='addagency.php' method='POST' class=' cursor-pointer text-center focus:outline-none text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-900'>
                             <input type='hidden'  name='operation' value='<?= $agency["agencyId"] ?>'>
                             <input type='hidden' name='agencyid' value='<?= $agency["agencyId"] ?>'>
                             <input type='submit'   name='editing' value='Edit' class='cursor-pointer'>
@@ -128,7 +139,7 @@ $agenteService = new Agencyservice();
                             </td>
 
                             <td >
-                                <form action='agences.php' method='post' class=' cursor-pointer text-center focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900'>
+                                <form action='agency.php' method='post' class=' cursor-pointer text-center focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900'>
                                     <input type='hidden' name='delete' value='<?= $agency["agencyId"] ?>'>
                                     <input type='submit'  name='deleteagency' value='Delete' class='cursor-pointer'>
                                 </form>
@@ -196,7 +207,7 @@ $agenteService = new Agencyservice();
                             </td>
 
                             <td >
-                                <form action='agences.php' method='post' class=' cursor-pointer text-center focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900'>
+                                <form action='agency.php' method='post' class=' cursor-pointer text-center focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900'>
                                     <input type='hidden' name='delete' value='<?= $agency["agencyId"] ?>'>
                                     <input type='submit'  name='deleteagency' value='Delete' class='cursor-pointer'>
                                 </form>

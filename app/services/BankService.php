@@ -84,7 +84,6 @@ public function editdBank(Bank $bank, $id){
 
     try {
         $stmt->execute();
-        echo "edited";
     } catch (PDOException $e) {
         die($e->getMessage());
     }

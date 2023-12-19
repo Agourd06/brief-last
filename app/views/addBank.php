@@ -23,7 +23,7 @@ $bankService = new Bankservice();
 [$logo, $name,$bankId] = $bankService->showeditdbank($id);
 
 }
-$logo ='';
+    $logo ='';
     $name = '';
 if (isset($_POST['edited'])) {
     $logo = $_POST['logobank'];
