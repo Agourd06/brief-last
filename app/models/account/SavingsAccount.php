@@ -3,8 +3,8 @@
 class SavingsAccount extends Account {
     protected $interestRate;
 
-    public function __construct($userId, $balance, $rib, $interestRate) {
-        parent::__construct($userId, $balance, $rib, 'Savings'); // 'Savings' indicates the account type
+    public function __construct($accountId, $balance, $RIB, $userId, $interestRate) {
+        parent::__construct($accountId, $balance, $RIB, $userId);
         $this->interestRate = $interestRate;
     }
 
@@ -12,9 +12,11 @@ class SavingsAccount extends Account {
         return $this->interestRate;
     }
 
-    public function setInterestRate($interestRate) {
-        $this->interestRate = $interestRate;
+    public function getAccountType()
+    {
+        return 'savings';
     }
+
 }
 
 ?>

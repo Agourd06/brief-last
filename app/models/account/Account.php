@@ -2,48 +2,35 @@
 
 class Account {
     protected $accountId;
-    protected $userId;
     protected $balance;
-    protected $rib;
-    protected $accountType;
+    protected $RIB;
+    protected $userId;
 
-    public function __construct($userId, $balance, $rib, $accountType) {
-        $this->userId = $userId;
+    public function __construct($accountId, $balance, $RIB, $userId) {
+        $this->accountId = $accountId;
         $this->balance = $balance;
-        $this->rib = $rib;
-        $this->accountType = $accountType;
+        $this->RIB = $RIB;
+        $this->userId = $userId;
+    }
+
+    public function setAccountId($accountId) {
+        $this->accountId = $accountId;
     }
 
     public function getAccountId() {
         return $this->accountId;
     }
 
-    public function getUserId() {
-        return $this->userId;
-    }
-
     public function getBalance() {
         return $this->balance;
     }
 
-    public function setBalance($balance) {
-        $this->balance = $balance;
+    public function getRIB() {
+        return $this->RIB;
     }
 
-    public function getRib() {
-        return $this->rib;
-    }
-
-    public function setRib($rib) {
-        $this->rib = $rib;
-    }
-
-    public function getAccountType() {
-        return $this->accountType;
-    }
-
-    public function setAccountType($accountType) {
-        $this->accountType = $accountType;
+    public function getUserId() {
+        return $this->userId;
     }
 }
 

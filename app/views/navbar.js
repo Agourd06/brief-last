@@ -10,7 +10,7 @@ selectElement.addEventListener('change', function() {
     var selectedOption = selectElement.value;
     
     if (selectedOption === 'Banks') {
-        window.location.href = 'banques.php';
+        window.location.href = 'Banks.php';
     }else if (selectedOption === 'agency') {
         window.location.href = 'agency.php';
      }else if (selectedOption === 'ATM') {

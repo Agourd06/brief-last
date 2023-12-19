@@ -1,6 +1,6 @@
 <?php
 define("HOST","localhost");
-define("DB","e-bank");
+define("DB","poo-banka");
 define("USER","root");
 define("PASSWORD","");
 

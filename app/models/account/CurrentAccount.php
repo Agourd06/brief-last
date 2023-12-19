@@ -1,10 +1,11 @@
 <?php
+require_once"Account.php";
 
 class CurrentAccount extends Account {
     protected $overdraftLimit;
 
-    public function __construct($userId, $balance, $rib, $overdraftLimit) {
-        parent::__construct($userId, $balance, $rib, 'Current'); // 'Current' indicates the account type
+    public function __construct($accountId, $balance, $RIB, $userId, $overdraftLimit) {
+        parent::__construct($accountId, $balance, $RIB, $userId);
         $this->overdraftLimit = $overdraftLimit;
     }
 
@@ -12,9 +13,11 @@ class CurrentAccount extends Account {
         return $this->overdraftLimit;
     }
 
-    public function setOverdraftLimit($overdraftLimit) {
-        $this->overdraftLimit = $overdraftLimit;
+    public function getAccountType()
+    {
+        return 'current';
     }
+
 }
 
 ?>

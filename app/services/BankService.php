@@ -16,20 +16,10 @@ class Bankservice extends Database implements BankInterface
         // $bankId = $bank->getbankId();
         $bankName = $bank->getbankName();
         $bankLogo = $bank->getlogo();
-
-
-
-
-
-
-
         $addag = "INSERT INTO bank (logo,bankName) VALUES (  :logo , :bankName)";
         $stmt = $db->prepare($addag);
         $stmt->bindParam(":bankName", $bankName);
         $stmt->bindParam(":logo", $bankLogo);
-
-
-
         try {
             $stmt->execute();
             echo "added";
@@ -53,10 +43,7 @@ class Bankservice extends Database implements BankInterface
     }
 
 
-
     public function showeditdbank($id){
-       
-
         $db = $this->connect();
             $bnkinfo = "SELECT * FROM bank WHERE bankId = $id";
             $getbank = $db->query($bnkinfo);
@@ -69,6 +56,8 @@ class Bankservice extends Database implements BankInterface
             return [$logo, $name,$bankId];
     
 }
+
+
 public function editdBank(Bank $bank, $id){
     $db = $this->connect();
 
